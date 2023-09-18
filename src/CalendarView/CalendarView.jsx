@@ -48,10 +48,20 @@ const CalendarView = ({ deleteTask }) => {
           </LocalizationProvider>
         </div>
       </Grid>
-      <Grid xs={12} sm={6} md={4} sx={{ maxWidth: 370 }}>
+      <Grid
+        xs={12}
+        sm={6}
+        md={4}
+        sx={{
+          maxWidth: 370,
+          minWidth: 300,
+          maxHeight: "80vh",
+          overflowY: "auto",
+        }}
+      >
         {selectedTasks.length > 0 ? (
           selectedTasks.map((item) => (
-            <Card xs={12} sm={6} md={4}>
+            <Card xs={12} sm={6} md={4} sx={{ marginTop: 2 }} className="card">
               <CardHeader
                 title={item.name}
                 subheader={item.date + item.deadline}

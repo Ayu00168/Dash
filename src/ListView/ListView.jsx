@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -40,13 +40,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export const ListView = ({ deleteTask }) => {
+export const ListView = ({ deleteTask, update }) => {
   const [open, setOpen] = useState(false);
 
   const selectedTasks = useSelector((state) => state.counter.selectedTask);
   const task = useSelector((state) => state.counter.taskData);
   const dispatch = useDispatch();
   const [modalData, setModaData] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   const handleDeleteTask = (item) => {
     deleteTask(item);
@@ -54,7 +55,9 @@ export const ListView = ({ deleteTask }) => {
     dispatch(deleteSelectedTask(tasks));
   };
 
-  const handleSearch = debounce((e) => {}, 500);
+  useEffect(() => {
+    setTasks(task);
+  }, [update, open, deleteTask]);
 
   const handleModal = (item) => {
     if (!open) {
@@ -62,6 +65,17 @@ export const ListView = ({ deleteTask }) => {
     }
     setOpen(!open);
   };
+
+  const handleSearch = debounce((e) => {
+    const { value } = e.target;
+
+    if (value) {
+      const filteredData = tasks.filter((item) => item.name === value);
+      setTasks(filteredData);
+    } else {
+      setTasks(task);
+    }
+  }, 500);
 
   return (
     <div className="container">
@@ -92,7 +106,7 @@ export const ListView = ({ deleteTask }) => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {task.map((row, index) => (
+            {tasks.map((row, index) => (
               <StyledTableRow key={index}>
                 <StyledTableCell>{row.name}</StyledTableCell>
                 <StyledTableCell align="right">{row.date}</StyledTableCell>

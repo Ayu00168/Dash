@@ -28,19 +28,6 @@ const MainView = () => {
   const [description, setDescription] = useState("");
   const tasksData = useSelector((state) => state.counter.taskData);
   const dispatch = useDispatch();
-  console.log(tasksData);
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    borderRadius: "5px",
-    boxShadow: 24,
-    p: 4,
-  };
 
   const handleChange = (e) => {
     setChecked(e.target.checked);
@@ -71,7 +58,6 @@ const MainView = () => {
   };
 
   const deleteTask = (item) => {
-    console.log(item.name);
     const newValue = tasksData.filter((i) => i.id !== item.id);
     dispatch(deleteTasksData(newValue));
   };
@@ -172,7 +158,7 @@ const MainView = () => {
       {checked ? (
         <CalendarView task={tasksData} deleteTask={deleteTask} />
       ) : (
-        <ListView taskData={tasksData} deleteTask={deleteTask} />
+        <ListView taskData={tasksData} deleteTask={deleteTask} update={open} />
       )}
     </div>
   );

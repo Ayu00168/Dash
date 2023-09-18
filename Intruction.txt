@@ -1,0 +1,21 @@
+/////////////
+
+yarn   install   .. for installing the  node pacakages.
+
+////////////////////
+Redux has  been  used to manage state management 
+
+///////////////////
+There are two  views
+1.List
+2.view
+
+////////////////////////////////////////////////////
+Toggle  Button to toggle  between the views
+
+///////////////////////////////////////////////////
+Create  task button  will  open the modal and create same goes  for the  edit button same will be opened for the edit  and delete button will directly delete the task
+
+//////////////////////////////////////////////////////////
+Search button has  debounce that will automatically Search the name  without any events.
+
